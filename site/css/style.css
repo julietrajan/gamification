@@ -1,59 +1,38 @@
-/* Reset some default styles */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
+/* Basic layout */
 body {
-  font-family: Arial, sans-serif;
-  display: flex;
+    font-family: Arial, sans-serif;
+    display: flex;
+    margin: 0;
 }
 
-/* Left column (Menu) */
-.menu {
-  width: 250px;
-  height: 100vh;
-  background-color: #333;
-  color: white;
-  padding-top: 20px;
-  position: fixed;
+.sidebar {
+    width: 200px;
+    padding: 20px;
+    background-color: #f4f4f4;
+    height: 100vh;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 }
 
-.menu h2 {
-  text-align: center;
-  color: #fff;
-  margin-bottom: 20px;
+.sidebar ul {
+    list-style: none;
+    padding: 0;
 }
 
-.menu a {
-  display: block;
-  color: white;
-  padding: 15px;
-  text-decoration: none;
-  font-size: 18px;
-  transition: background-color 0.3s;
+.sidebar ul li {
+    margin: 15px 0;
 }
 
-.menu a:hover {
-  background-color: #575757;
+.sidebar ul li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
 }
 
-/* Main content area */
-.content {
-  margin-left: 250px;
-  padding: 20px;
-  width: calc(100% - 250px); /* Ensures content fits beside the menu */
+.sidebar ul li a:hover {
+    color: #007BFF;
 }
 
-/* Additional styling for the content */
-.content h1 {
-  font-size: 2.5em;
-  color: #333;
+.main-content {
+    flex-grow: 1;
+    padding: 20px;
 }
-
-.content p {
-  font-size: 1.2em;
-  color: #666;
-}
-
