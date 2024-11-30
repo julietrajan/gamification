@@ -1,27 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Page with Left Menu</title>
-  <link rel="stylesheet" href="css/style.css">  <!-- Link to the external CSS file -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Markdown Loader</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
+    <div class="sidebar">
+        <ul>
+            <li><a href="#" data-file="comics/aidata-vehicleassistant.md">Home</a></li>
+            <li><a href="#" data-file="comics/about.md">About</a></li>
+            <li><a href="#" data-file="comics/contact.md">Contact</a></li>
+        </ul>
+    </div>
+    <div class="main-content" id="content-area">
+        <h1>Welcome!</h1>
+        <p>Click a link from the left to load content dynamically.</p>
+    </div>
 
-  <!-- Left Menu Column -->
-  <div class="menu">
-    <h2>Menu</h2>
-    <a href="comics/aidata-vehicleassistant.md">Home</a>
-    <a href="#">About</a>
-    <a href="#">Services</a>
-    <a href="#">Contact</a>
-  </div>
+    <script>
+        // Fetch all sidebar links
+        const links = document.querySelectorAll('.sidebar a');
 
-  <!-- Main Content Area -->
-  <div class="content">
-    <h1>Welcome to Our Website</h1>
-    <p>This is a simple page layout with a left-side menu. You can add more content here and style it as needed.</p>
-  </div>
-
+        links.forEach(link => {
+            link.addEventListener('click', function(event) {
+                event.preventDefault(); // Prevent default navigation
+                
+                const filePath = this.getAttribute('data-file'); // Get the file path from data-file attribute
+                
+                fetch(filePath)
+                    .then(response => {
+                        if (!response.ok) throw new Error('File not found');
+                        return response.text();
+                    })
+                    .then(data => {
+                        const htmlContent = marked(data); // Convert Markdown to HTML
+                        document.getElementById('content-area').innerHTML = htmlContent;
+                    })
+                    .catch(error => {
+                        console.error('Error loading file:', error);
+                        document.getElementById('content-area').innerHTML = '<p>Failed to load content.</p>';
+                    });
+            });
+        });
+    </script>
 </body>
 </html>
